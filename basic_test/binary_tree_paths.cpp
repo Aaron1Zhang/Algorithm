@@ -32,7 +32,28 @@ vector<string> binaryTreePaths(TreeNode* root) {
     return paths;
 }
 
+//方法二
+void helper(TreeNode* root, vector<string>& res, string cur) {
+    if(root == nullptr) {
+        return;
+    }
+    if(root->left == nullptr && root->right == nullptr) {
+        cur += to_string(root->val);
+        res.push_back(cur);
+        return;
+    }
+    cur += to_string(root->val) + "->";
+    helper(root->left, res, cur);
+    helper(root->right, res, cur);
+}
 
+vector<string> binaryTreePaths(TreeNode* root) {
+    vector<string> res;
+    string cur;
+    helper(root, res, cur);
+    return res;
+
+}
 
 
 int main(int argc, const char** argv) {
